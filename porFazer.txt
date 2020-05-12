@@ -1,0 +1,20 @@
+propostas
+ - colocar os anexos ok
+ - colocar os botoes de atualizar e finalizar a proposta ok
+ - paginação DA LOG PROPOSTA ok
+ - ver tamanho da observação para exibição 
+ - ver como reativar a proposta
+ - ver como fazer proposta de cliente ja existente
+
+
+
+usuarios
+ - usuario sem ser pelo email
+ - novo
+ - edição
+ - desabilitar    
+ - resetar senha
+
+
+
+

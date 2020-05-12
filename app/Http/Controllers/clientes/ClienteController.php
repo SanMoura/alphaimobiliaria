@@ -1,0 +1,113 @@
+<?php
+
+namespace App\Http\Controllers\clientes;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ClienteRequest;
+use App\Http\Requests\ClienteUpdateRequest;
+
+
+
+use App\Models\cliente;
+use App\Models\proposta;
+use App\Models\log_proposta;
+use App\User;
+
+class ClienteController extends Controller
+{
+
+    public function index(){
+
+        $title = 'Clientes';
+        
+
+        $usuarios = User::where('id', auth()->user()->id)->get();
+        $cargo = $usuarios[0]->cargo_id;
+        if($cargo == 1){
+            $clientes = cliente::orderBy('nome','asc')
+                                ->with('usuario')
+                                ->paginate(9);
+
+        }else{
+            $clientes = cliente::where('user_id', auth()->user()->id)
+                                ->orderBy('nome','asc')
+                                ->with('usuario')
+                                ->paginate(9);
+        }
+
+        
+        return view('clientes/index', compact('title','clientes', 'cargo'));
+    }
+
+    
+    public function cadCliente(){
+        $title = 'Novo Cliente';
+
+
+        return view('clientes/cadastro', compact('title'));
+    }
+
+    public function editCliente( Request $request ){
+
+        $title = 'Edição de Cliente';
+
+        $cliente_id = $request->only('cliente_id');
+
+        $clientes = cliente::where('id',$cliente_id)->get();
+
+        return view('clientes/edicao', compact('title','clientes'));
+    }
+
+
+    public function updateCliente( ClienteUpdateRequest $request ){
+
+        $dados = cliente::find($request->input('cliente_id'));
+
+        $dados->nome = $request->input('nome');
+        $dados->cpf = $request->input('cpf');
+        $dados->rg = $request->input('rg');
+        $dados->telefone = $request->input('telefone');
+        $dados->renda = $request->input('renda');
+        $dados->fonte = $request->input('fonte');
+        $dados->data = $request->input('data');
+        
+        $dados->save();
+        
+        return redirect()->route('cliente.index');
+    }
+
+
+    public function store(ClienteRequest $request){
+
+        $validated = $request->validated();
+        
+        $cliente = cliente::create([
+            'nome' => $request->input('nome'),
+            'rg' => $request->input('rg'),
+            'cpf' => $request->input('cpf'),
+            'fonte' => $request->input('fonte'),
+            'data' => $request->input('data'),
+            'renda' => $request->input('renda'),
+            'telefone' => $request->input('telefone'),
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $proposta = proposta::create([
+            'cliente_id' => $cliente->id,
+            'user_id' => auth()->user()->id,
+            
+        ]);
+
+        $log_proposta = log_proposta::create([
+            'dt_atendimento' => $request->input('data'),
+            'status_id' => 1,
+            'proposta_id' => $proposta->id,
+            'observacoes' => $request->input('observacoes')
+        ]);
+
+
+        return redirect()->route('proposta.index', ['cliente_id' => $cliente->id]);
+
+    }
+}
