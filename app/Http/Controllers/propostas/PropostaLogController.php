@@ -34,7 +34,8 @@ class PropostaLogController extends Controller
             
                 $file = $arquivos[$i];
                 $filename = time() . '.'.$i.'.' . $arquivos[$i]->extension();
-                $filePath = public_path() . '/files/uploads/';
+                // $filePath = public_path() . '../../../domains/imobiliariaalpha.com/public_html/files/uploads/';
+                $filePath = public_path() . '/../../../domains/imobiliariaalpha.com/public_html/files/uploads/';
                 $nameOriginal = $arquivos[$i]->getClientOriginalName();
                 $file->move($filePath, $filename);
 
