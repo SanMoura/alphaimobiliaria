@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\log_proposta;
 use App\Models\Anexos;
+use App\Models\PropostaUsers;
 
 use App\Http\Requests\UploadRequest;
 
@@ -20,9 +21,23 @@ class PropostaLogController extends Controller
         $log_proposta = log_proposta::create([
             'status_id' => $request->input('status_id'),
             'proposta_id' => $request->input('proposta_id'),
+            'valorImovel' => $request->input('valorImovel'),
+            'imovel' => $request->input('imovel'),
             'dt_atendimento' => $request->input('dt_atendimento'),
             'observacoes' => $request->input('observacoes'),
         ]);
+
+        
+        $props = PropostaUsers::where('proposta_id', $request->input('proposta_id'))->get();
+        foreach ($props as $prop) {
+            $propostaUserId = $prop->id;
+        }
+
+        $dados = PropostaUsers::find($propostaUserId);
+
+        $dados->user_id_adicional = $request->input('userAdicional');
+        
+        $dados->save();
 
         
        

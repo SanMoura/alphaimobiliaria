@@ -22,7 +22,7 @@
                         <div class="row">
                           <div class="col-md-2">
                             Nº Proposta:
-                            <input type="text" class="form-control " name="n_proposta" disabled value="{{ $proposta_cliente->id }}">
+                            <input type="text" class="form-control" name="n_proposta" disabled value="{{ $proposta_cliente->id }}">
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
@@ -39,7 +39,7 @@
                           <div class="col-md-2">
                             <br/>
                             <button id="{{ $proposta_cliente->id }}" onclick="proposta_id(this)" class="btn btn-secondary" style="border-radius: 0 !important" data-toggle="modal" data-target=".modal-proposta">Atualizar</button>
-                            <a class="btn btn-secondary" href="{{ route('finalizar') }}?proposta_id={{ $proposta_cliente->id }}" style="border-radius: 0 !important" >Finalizar</a>
+                            <a class="btn btn-secondary" href="{{ route('finalizar') }}?proposta_id={{ $proposta_cliente->id }}&cliente_id={{ $proposta_cliente->cliente->id }}" style="border-radius: 0 !important" >Finalizar</a>
                           </div>
                         </div>  
                         @endforeach
@@ -111,7 +111,7 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-body">
-                    <form action="{{ route('propostaLog.store') }}" enctype="multipart/form-data" method="post">
+                    <form action="{{ route('propostaLog.store') }}" id="formLogProposta" enctype="multipart/form-data" method="post">
                       @csrf
                       <input type="text" hidden="false" name="proposta_id" id="proposta_id">
                       <input type="text" hidden="false" name="cliente_id_att" value="{{ $proposta_cliente->cliente->id  }}">
@@ -119,7 +119,7 @@
                           <div class="col-md-3">
                               Status:
                               
-                            <select name="status_id" class="form-control" required>
+                            <select name="status_id" id="status_id" class="form-control" required>
                                 <option value="">Selecione</option>
                                 @foreach ($status as $stat)
                                     <option value="{{ $stat->id }}">{{ $stat->ds_status }}</option>
@@ -128,8 +128,30 @@
                           </div>
                           <div class="col-md-3">
                               Data:
-                              <input type="date" name="dt_atendimento" class="form-control" required> 
-                        </div>  
+                              <input type="date" name="dt_atendimento" id="dt_atendimento" class="form-control" required> 
+                        </div> 
+                        <div class="col-md-6">
+                          Usuário Adicional:
+                          <select name="userAdicional" class="form-control">
+                          <option value="{{ $usuario_add }}"> {{ $userAddNome }} </option>
+
+                            @foreach ($usuarios as $usuario)
+
+                              <option value="{{ $usuario->id }}"> {{ $usuario->name }} </option>
+
+                            @endforeach
+                          </select>
+                    </div> 
+                      </div> <br/>
+                      <div class="row">
+                        <div class="col-md-9">
+                          Imóvel:
+                          <input type="text" name="imovel" id="imovel" class="form-control" value="{{ $imovel }}"> 
+                    </div>  
+                    <div class="col-md-3">
+                      Valor:
+                      <input type="text" name="valorImovel" id="valorImovel" class="form-control" value="{{ $valorImovel }}"> 
+                </div> 
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -137,7 +159,7 @@
                             Observações:
                             <textarea name="observacoes" class="form-control" rows="10"></textarea>
                         </div>
-                    </div>
+                    </div><br/>
                     <div class="row">
                         <div class="col-md-12">
                             Anexos:
@@ -146,12 +168,40 @@
                     </div>
                     
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" style="border-radius: 0 !important; border-shadow:0"  data-dismiss="modal">Fechar</button>
-                    <button class="btn btn-primary" style="border-radius: 0 !important">Confirmar</button>
-                  </div>
                 </form>
+                  <div class="modal-footer">
+                    <button type="button"  class="btn btn-secondary" style="border-radius: 0 !important; border-shadow:0"  data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-primary" id="btnLogProposta" style="border-radius: 0 !important">Confirmar</button>
+                  </div>
+
+                  <div class="container-fluid" id="alert_msg">
+                  <div class="alert alert-danger animated bounceInUp"  style="
+                  
+                  
+                  position: fixed
+                  bottom: 0;
+                  right: 0px;
+                  z-index: 1;
+              ">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Clise">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="row">
+                      <div class="col-md-1">
+                          <div class="text-center">
+                              <i class="fas fa-exclamation-triangle fa-3x"></i>
+                          </div>
+                      </div>
+                      <div class="col-md-11">
+                          <ul class="mb-0">
+                              <li> Há campos que não foram preenchidos, favor rever. </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+                
                 </div>
+              </div>
               </div>
             </div>
 

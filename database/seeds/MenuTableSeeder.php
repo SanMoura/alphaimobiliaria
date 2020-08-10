@@ -38,6 +38,13 @@ class MenuTableSeeder extends Seeder
                 'cargo_id' => 1
                 
             ], 
+            [
+                'ds_menu' => 'GERENCIAMENTO DE PONTOS',
+                'route' => 'gerenciaPontos',
+                'icone' => '<i class="fas fa-align-justify" style="color: #852E2A;"></i>',
+                'cargo_id' => 1
+                
+            ], 
 
             
         ];

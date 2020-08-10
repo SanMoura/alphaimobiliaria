@@ -17,11 +17,13 @@ use App\User;
 class UsuariosController extends Controller
 {
     public function index(){
+
         $title = 'Usuarios';
 
         $usuarios = User::where('id', '!=' , 1)->paginate(10);
 
         return view('usuarios.index', compact('title','usuarios'));
+        
     }
 
 
@@ -67,13 +69,20 @@ class UsuariosController extends Controller
 
     public function updateUsuario( UsuarioUpdateRequest $request ){
 
+        $cargo = Cargos::where('id', $request->input('cargo'))->get();
+        
+        $pontos = $cargo[0]->pontos;
+        
         $dados = User::find($request->input('usuario_id'));
+
+
 
         $dados->name = $request->input('name');
         $dados->email = $request->input('email');
         $dados->cargo_id = $request->input('cargo');
         $dados->cpf = $request->input('cpf');
         $dados->rg = $request->input('rg');
+        $dados->pontos = $pontos;
         $dados->password = Hash::make($request->input('password'));
         
         $dados->save();

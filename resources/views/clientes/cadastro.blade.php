@@ -55,7 +55,15 @@
                                 <div class="col-md-3">
                                   <div class="form-group">
                                       Fonte:
-                                      <input type="text" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " name="fonte" placeholder="" value="{{ old('fonte') }}">
+                                      {{-- <input type="text" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " name="fonte" placeholder="" value="{{ old('fonte') }}"> --}}
+
+                                      <select name="fonte" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " data-live-search="true">
+                                        <option value="">SELECIONE</option>
+                                        <option value="INSTAGRAM">INSTAGRAM</option>
+                                        <option alue="FACEBOOK">FACEBOOK</option>
+                                        <option value="OLX">OLX</option>
+                                        <option value="OUTROS">OUTROS</option>
+                                      </select>
                                   </div>
                                 </div>
                                 <div class="col-md-3">

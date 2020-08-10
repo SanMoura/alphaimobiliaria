@@ -28,10 +28,10 @@ class cliente extends Model
         return $this->hasMany(proposta::class, 'cliente_id');
     }
 
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // public function usuario()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 
 
 

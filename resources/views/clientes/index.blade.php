@@ -25,10 +25,12 @@
                                     <th scope="col">RG</th>
                                     <th scope="col">FONTE</th>
                                     <th scope="col">TELEFONE</th>
-                                    @if ($cargo == 1)
-                                        <th scope="col">USUÁRIO</th>    
-                                    @endif
-                                  <th scope="col" class="text-center"><a href="{{ route('cadCliente') }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">NOVO</a></th>
+                                    @if ( auth()->user()->cargo_id <> 1 )
+                                    <th scope="col" class="text-center"><a href="{{ route('cadCliente') }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">NOVO</a></th>
+                                    @else
+                                        <th></th>
+                                    
+                                  @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,15 +50,16 @@
                                         </td>
                                         <td>
                                           {{ $cliente->telefone }}
+                                          
                                         </td>
-                                        @if ($cargo == 1)
-                                        <td>
-                                            {{ $cliente->usuario->name }}
-                                          </td>
-                                        @endif
                                         <td class="text-center"><a href="{{ route('editCliente',['cliente_id' => $cliente->id]) }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">EDITAR</a>
-                                        @if ($cliente->proposta == false)
-                                            <a href="{{ route('editCliente',['cliente_id' => $cliente->id]) }}" class="btn btn-primary btn-sm" style="border-radius: 0 !important">NOVA PROPOSTA</a></td>    
+                                        @if ($cliente->proposta == '[]')
+
+                                            @if ( auth()->user()->cargo_id <> 1 )
+                                                <a href="{{ route('novaProposta',['cliente_id' => $cliente->id]) }}" class="btn btn-primary btn-sm" style="border-radius: 0 !important">NOVA PROPOSTA</a></td>    
+                                            
+                                            @endif
+                                            
                                         @endif
                                         
                                     </tr>    

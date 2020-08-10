@@ -24,6 +24,7 @@
                                     <th scope="col">LOGIN</th>
                                     <th scope="col">CPF</th>
                                     <th scope="col">CARGO</th>
+                                    <th scope="col">PONTOS</th>
                                   <th scope="col" class="text-center"><a href="{{ route('cadastrarUsuario') }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">NOVO</a></th>
                                 </tr>
                             </thead>
@@ -41,6 +42,9 @@
                                         </td>
                                         <td>
                                             {{ $usuario->cargo->ds_cargo }}
+                                        </td>
+                                        <td>
+                                            <div class="pontosMask">{{ $usuario->pontos ?? '120000'}}</div>
                                         </td>
                                         <td class="text-center"><a href="{{ route('editUsuario',['usuario_id' => $usuario->id]) }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">EDITAR</a></td>
                                     </tr>    

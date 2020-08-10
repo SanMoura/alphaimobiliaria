@@ -17,6 +17,7 @@ class CreateCargoTable extends Migration
             $table->id();
 
             $table->string('ds_cargo');
+            $table->string('pontos');
             $table->boolean('sn_ativo')->default(true);
 
             $table->timestamps();

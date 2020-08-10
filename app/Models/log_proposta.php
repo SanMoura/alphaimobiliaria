@@ -13,12 +13,16 @@ class log_proposta extends Model
         'observacoes',
         'status_id',
         'proposta_id',
+        'imovel',
+        'valorImovel',
+        'user_id_adicional'
     ];
 
     public function proposta()
     {
         return $this->belongsTo(proposta::class, 'proposta_id');
     }
+
 
     public function anexos()
     {

@@ -55,6 +55,12 @@
                             <div>
                                 <i class="ni education_hat mr-2"></i>{{ auth()->user()->cargo->ds_cargo }}
                             </div>
+                            <div class="h5 mt-4">
+                                <i class="ni business_briefcase-24 mr-2"></i>Pontos:
+                            </div>
+                            <div>
+                                <i class="ni education_hat mr-2"></i><div class="pontosMask">{{ auth()->user()->pontos ?? '120000' }}</div>
+                            </div>
                        
                         </div>
                     </div>

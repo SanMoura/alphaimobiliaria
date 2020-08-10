@@ -12,7 +12,9 @@ use App\Http\Requests\ClienteUpdateRequest;
 use App\Models\cliente;
 use App\Models\proposta;
 use App\Models\log_proposta;
+use App\Models\PropostaUsers;
 use App\User;
+
 
 class ClienteController extends Controller
 {
@@ -23,21 +25,24 @@ class ClienteController extends Controller
         
 
         $usuarios = User::where('id', auth()->user()->id)->get();
-        $cargo = $usuarios[0]->cargo_id;
-        if($cargo == 1){
-            $clientes = cliente::orderBy('nome','asc')
-                                ->with('usuario')
-                                ->paginate(9);
-
-        }else{
-            $clientes = cliente::where('user_id', auth()->user()->id)
-                                ->orderBy('nome','asc')
-                                ->with('usuario')
-                                ->paginate(9);
-        }
-
         
-        return view('clientes/index', compact('title','clientes', 'cargo'));
+        $cargo = $usuarios[0]->cargo_id;
+        
+            $clientes = cliente::orderBy('nome','asc')
+            ->with(['proposta' => function ($r){
+                $r->where('sn_ativo', true);
+            }])
+            ->paginate(9);
+
+
+
+
+            $propostasAtivas = proposta::where('sn_ativo', true)
+            ->get();
+
+            
+
+        return view('clientes/index', compact('title','clientes', 'cargo', 'propostasAtivas'));
     }
 
     
@@ -95,6 +100,12 @@ class ClienteController extends Controller
 
         $proposta = proposta::create([
             'cliente_id' => $cliente->id,
+            //'user_id' => auth()->user()->id,
+            
+        ]);
+
+        $propostaUsers = PropostaUsers::create([
+            'proposta_id' => $proposta->id,
             'user_id' => auth()->user()->id,
             
         ]);
@@ -110,4 +121,6 @@ class ClienteController extends Controller
         return redirect()->route('proposta.index', ['cliente_id' => $cliente->id]);
 
     }
+
+    
 }

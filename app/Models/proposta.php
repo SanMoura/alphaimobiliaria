@@ -11,18 +11,13 @@ class proposta extends Model
 
     protected $fillable = [
         'user_id',
-        'cliente_id'
+        'cliente_id',
     ];
 
 
     public function cliente()
     {
         return $this->belongsTo(cliente::class, 'cliente_id');
-    }
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'id');
     }
 
     public function log_proposta()
@@ -34,5 +29,12 @@ class proposta extends Model
     {
          return self::log_proposta()->with('status');
     }
+
+    public function proposta_users_relation()
+    {
+        return $this->hasMany(PropostaUsers::class, 'proposta_id');
+    }
+
+    
 
 }

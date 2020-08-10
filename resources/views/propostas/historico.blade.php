@@ -53,7 +53,11 @@
                                                     <button class="btn btn-secondary btn-sm" style="border-radius: 0 !important" data-toggle="modal" data-target=".modal-ver-anexos" id="{{ $proposta_cliente->id }}" onclick="exibe_anexos_finalizados(this)">VER</button>    
                                               </td>
                                               <td>
-                                              <a href="{{ route('novaProposta') }}?cliente_id={{ $proposta_cliente->cliente->id }}" class="btn btn-secondary btn-sm text-right" style="border-radius: 0 !important">NOVO</a>    
+                                            @if ( auth()->user()->cargo_id <> 1 )
+                                            <a href="{{ route('novaProposta') }}?cliente_id={{ $proposta_cliente->cliente->id }}" class="btn btn-secondary btn-sm text-right" style="border-radius: 0 !important">NOVO</a>      
+                                                
+                                            @endif
+                                              
                                               </td>
                                             </tr>    
                                         

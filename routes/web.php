@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 	//return redirect()->route('home');
 	
-	return redirect()->route('site');
+	return redirect()->route('home');
 });
 
 Route::get('/site', 'SiteController@index')->name('site');
@@ -64,13 +64,17 @@ Route::group(['middleware' => 'auth', 'namespace' => 'produtos'], function () {
 Route::group(['middleware' => 'auth', 'namespace' => 'propostas'], function () {
 
 	Route::resource('/proposta', 'PropostaController');
+	
 	Route::get('/historico', 'PropostaController@historico')->name('historico');
+	Route::get('/gerenciaPontos', 'PropostaController@gerenciaPontos')->name('gerenciaPontos');
+	Route::post('/storePontos', 'PropostaController@storePontos')->name('storePontos');
 	Route::get('/finalizaProposta', 'PropostaController@finalizar')->name('finalizar');
 	Route::get('/novaProposta', 'PropostaController@novaProposta')->name('novaProposta');
 	Route::resource('/propostaLog', 'PropostaLogController');
 	Route::post('/anexos', 'PropostaLogController@anexos')->name('anexos');
 	Route::post('/anexos_finalizados', 'PropostaLogController@anexos_finalizados')->name('anexos_finalizados');
 	Route::get('/anexos_finalizados', 'PropostaLogController@anexos_finalizados')->name('anexos_finalizados');
+	Route::post('/atribuiPontos', 'PropostaController@atribuiPontos')->name('atribuiPontos');
 	
 	
 });

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('rg')->nullable();
             $table->string('cpf')->unique();
             $table->string('foto')->nullable();
+            $table->string('pontos')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

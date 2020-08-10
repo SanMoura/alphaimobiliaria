@@ -17,6 +17,7 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
         <style>
             body{
                 text-transform: uppercase;
@@ -45,6 +46,10 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ asset('argon') }}/js/jquery.mask.min.js"></script>
         <script src="{{ asset('argon') }}/js/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+        <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
         
         @stack('js')
         
@@ -133,12 +138,56 @@
                     $('#cpfUsuario').mask('000.000.000-00', {reverse: true});
                     $('#telefone').mask('(00) 00000-0000');
                     $('#renda').mask('000.000.000.000.000,00', {reverse: true});
-                    
+                    $('#valorImovel').mask('000.000.000.000.000', {reverse: true});
+                    $('#alert_msg').hide();
+                    $('.pontosMask').mask('000.000.000.000.000', {reverse: true});
+                    $('.trRange').hide();
                 });
 
             function proposta_id(e) {
                 $('#proposta_id').val(e.id);
             }
+
+            $('#btnLogProposta').click(
+                function () {
+
+                    let imovel = $('#imovel').val();
+                    let valorImovel = $('#valorImovel').val();
+                    let dt_atendimento = $('#dt_atendimento').val();
+                    let status = $('#status_id').val();
+
+                    if ( status == 4){
+
+                        if ( imovel == '' || valorImovel == '' || dt_atendimento == ''){
+                            $('#alert_msg').show().addClass('animated bounceOutDown');
+                            setTimeout(
+                            function () {
+                                
+                                $('#alert_msg').hide().addClass('animated bounceOutDown');
+                            }, 4500
+                        );
+
+                        }else{
+
+                            $('#formLogProposta').submit();
+
+                        }
+                    }else if ( dt_atendimento == '' || status == '' ){
+                        $('#alert_msg').show().addClass('animated bounceOutDown');
+                        setTimeout(
+                            function () {
+                                
+                                $('#alert_msg').hide().addClass('animated bounceOutDown');
+                            }, 4500
+                        );
+
+                    }else{
+
+                        $('#formLogProposta').submit();
+
+                    }
+                }
+            );
 
 
             function exibe_anexos(par) {

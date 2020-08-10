@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 use App\Models\Cargos;
 use App\Models\proposta;
-use App\Models\cliente;
+// use App\Models\cliente;
 
 class User extends Authenticatable
 {
@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function proposta()
+    public function proposta_user()
     {
         return $this->hasMany(proposta::class, 'user_id');
     }
@@ -54,8 +54,8 @@ class User extends Authenticatable
     }
 
     
-    public function cliente()
-    {
-        return $this->hasMany(cliente::class, 'user_id');
-    }
+    // public function cliente()
+    // {
+    //     return $this->hasMany(cliente::class, 'user_id');
+    // }
 }

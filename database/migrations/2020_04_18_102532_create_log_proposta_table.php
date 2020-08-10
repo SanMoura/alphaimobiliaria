@@ -16,6 +16,10 @@ class CreateLogPropostaTable extends Migration
         Schema::create('log_proposta', function (Blueprint $table) {
             $table->id();
             $table->timestamp('dt_atendimento');
+
+            $table->string('imovel')->nullable();
+            $table->string('valorImovel')->nullable();
+            $table->string('user_id_adicional')->nullable();
             
             $table->longText('observacoes')->nullable();
 

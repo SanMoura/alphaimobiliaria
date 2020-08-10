@@ -82,29 +82,37 @@
                                     <th scope="col">Telefone</th>
                                     <th scope="col">Fonte</th>
                                     <th scope="col">Renda</th>
+                                    @if ( auth()->user()->cargo_id == 1 )
+                                        <th scope="col">Usuário</th>
+                                    @endif
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($propostas as $proposta)
+                                @forelse ($propostas_home as $proposta_home)
                                     <tr>
                                         <th scope="row">
-                                            {{ $proposta->cliente->nome }}
+                                            {{ $proposta_home->cliente->nome }}
                                         </th>
                                         <td>
-                                            {{ date('d/m/Y', strtotime($proposta->cliente->data)) }}
+                                            {{ date('d/m/Y', strtotime($proposta_home->cliente->data)) }}
                                         </td>
                                         <td>
-                                            {{ $proposta->cliente->telefone }}
+                                            {{ $proposta_home->cliente->telefone }}
                                         </td>
                                         <td>
-                                            {{ $proposta->cliente->fonte }}
+                                            {{ $proposta_home->cliente->fonte }}
                                         </td>
                                         <td>
-                                            {{ $proposta->cliente->renda }}
+                                            {{ $proposta_home->cliente->renda }}
                                         </td>
+                                        @if ( auth()->user()->cargo_id == 1 )
+                                            <td>
+                                                {{ $proposta_home->proposta_users_relation[0]->usuarios_proposta->name }}
+                                            </td>
+                                        @endif
                                         <td>
-                                            <a href="{{ route('proposta.index') }}?cliente_id={{ $proposta->cliente->id }}" class="btn btn-sm btn-secondary" style="border-radius: 0 !important">Proposta</button>
+                                            <a href="{{ route('proposta.index') }}?cliente_id={{ $proposta_home->cliente->id }}" class="btn btn-sm btn-secondary" style="border-radius: 0 !important">Proposta</button>
                                         </td>
                                     </tr>    
                                 @empty
@@ -126,7 +134,7 @@
             <div class="col-md-12">
               
               <br/>
-              {{ $propostas->links() }}
+              {{ $propostas_home->links() }}
             
             </div>
             
@@ -137,6 +145,4 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
 @endpush
