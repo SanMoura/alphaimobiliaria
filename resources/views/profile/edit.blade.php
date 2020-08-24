@@ -15,7 +15,10 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="{{ asset('files/fotos') }}/{{ auth()->user()->foto ?? 'coringa.png' }}" class="rounded-circle">
+                                    <img src="{{ asset('files/fotos') }}/{{ auth()->user()->foto ?? 'user.png' }}" style="vertical-align: middle;
+                                    width: 180px;
+                                    height: 180px;
+                                    border-radius: 50%;">
                                 </a>
                             </div>
                         </div>

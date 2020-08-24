@@ -61,7 +61,8 @@ class ProfileController extends Controller
                 foreach ($fotoAtuals as $fotoAtual) {
                     
                     if ($fotoAtual->foto){
-                        unlink(public_path()."/files/fotos/{$fotoAtual->foto}");
+                        // unlink(public_path()."/files/fotos/{$fotoAtual->foto}");
+                        unlink(public_path() . "/../../../domains/imobiliariaalpha.com/public_html/files/fotos/{$fotoAtual->foto}");
                     }
                     
                 }
@@ -70,7 +71,9 @@ class ProfileController extends Controller
 
                 $filename = time() .'.'. $arquivos['fotoPerfil']->extension();
     
-                $filePath = public_path() . '/files/fotos/';
+                $filePath = public_path() . '/../../../domains/imobiliariaalpha.com/public_html/files/fotos/';
+                // public_path() . '/files/fotos/';
+                
     
                 $nameOriginal = $arquivos['fotoPerfil']->getClientOriginalName();
     

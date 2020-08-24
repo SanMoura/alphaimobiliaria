@@ -23,7 +23,7 @@ class PropostaUsers extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->bigInteger('user_id_adicional')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

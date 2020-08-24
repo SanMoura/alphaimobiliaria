@@ -27,12 +27,27 @@ class ClienteController extends Controller
         $usuarios = User::where('id', auth()->user()->id)->get();
         
         $cargo = $usuarios[0]->cargo_id;
-        
+
+        if ($cargo == 1){
+            
             $clientes = cliente::orderBy('nome','asc')
             ->with(['proposta' => function ($r){
                 $r->where('sn_ativo', true);
             }])
             ->paginate(9);
+   
+        }else{
+
+            $clientes = cliente::orderBy('nome','asc')
+            ->where('user_id', auth()->user()->id)
+            ->with(['proposta' => function ($r){
+                $r->where('sn_ativo', true);
+            }])
+            ->paginate(9);
+
+        }
+        
+         
 
 
 

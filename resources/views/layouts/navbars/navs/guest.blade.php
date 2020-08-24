@@ -3,7 +3,7 @@
     <div class="container px-4 " style="width:auto !important">
         <a class="navbar-brand " href="{{ route('home') }}" >
             
-            <img src="{{ asset('argon') }}/img/brand/white.png"/>
+            <img src="{{ asset('argon') }}/img/brand/whiteNew.png"/>
         </a>
         
 
