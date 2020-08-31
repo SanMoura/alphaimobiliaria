@@ -20,6 +20,7 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col"></th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">LOGIN</th>
                                     <th scope="col">CPF</th>
@@ -32,6 +33,15 @@
                                 @forelse ($usuarios as $usuario)
                                     <tr>
                                         <th scope="row">
+                                            <span >
+                                                <img style="vertical-align: middle;
+                                                width: 50px;
+                                                height: 50px;
+                                                border-radius: 50%;" alt="" src="{{ asset('files/fotos') }}/{{ $usuario->foto ?? 'user.png' }}">
+                                            </span>
+                                        </th>
+                                        
+                                        <th> 
                                             {{ $usuario->name }}
                                         </th>
                                         <td>
