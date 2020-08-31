@@ -59,9 +59,16 @@
                                   </div>
                                 <div class="col-md-3">
                                   <div class="form-group">
-                                      Fonte:
-                                      <input type="text" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " name="fonte" placeholder="" value="{{$cliente->fonte }}">
-                                  </div>
+                                    Fonte:
+                                    {{-- <input type="text" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " name="fonte" placeholder="" value="{{ old('fonte') }}"> --}}
+
+                                    <select name="fonte" class="form-control{{ $errors->has('fonte') ? ' is-invalid' : '' }} " data-live-search="true">
+                                      <option value="">SELECIONE</option>
+                                      @foreach ($fontes as $fonte)
+                                      <option value="{{ $fonte->id }}">{{ $fonte->ds_fonte }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-group">

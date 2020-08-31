@@ -46,7 +46,7 @@
                                             {{ $cliente->rg }}
                                         </td>
                                         <td>
-                                            {{ $cliente->fonte }}
+                                            {{ $cliente->fonte->ds_fonte }}
                                         </td>
                                         <td>
                                           {{ $cliente->telefone }}

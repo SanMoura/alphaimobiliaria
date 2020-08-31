@@ -9,6 +9,7 @@ use App\Models\cliente;
 use App\Models\proposta;
 use App\Models\status;
 use App\Models\log_proposta;
+use App\Models\motivoFinalizacao;
 use App\Models\PropostaUsers;
 use App\User;
 use App\Models\Cargos;
@@ -36,6 +37,9 @@ class PropostaController extends Controller
         $cliente = $request->only('cliente_id');
 
         $status = status::where('sn_ativo',true)->get();
+
+        $motivos = motivoFinalizacao::where('sn_ativo', true)
+        ->get();
 
         $propostas = proposta::where('sn_ativo', true)
         ->where('cliente_id', $cliente)
@@ -85,7 +89,7 @@ class PropostaController extends Controller
         ->get();
 
 
-        return view('propostas/cadastro', compact('title', 'proposta_clientes', 'propostas', 'status', 'log_propostas', 'ultimo_status', 'imovel', 'valorImovel', 'usuarios', 'usuario_add','userAddNome'));
+        return view('propostas/cadastro', compact('title', 'proposta_clientes', 'propostas', 'status', 'log_propostas', 'ultimo_status', 'imovel', 'valorImovel', 'usuarios', 'usuario_add','userAddNome','motivos'));
     }
     
     public function novaProposta(Request $request){
@@ -158,11 +162,13 @@ class PropostaController extends Controller
 
         
 
-        if ($imovel != null && $valor != null){
+        if ($imovel != null && $valor != null ){
 
             $dados = proposta::find($request->input('proposta_id'));
 
             $dados->sn_ativo = false;
+
+            $dados->motivo_finalizacao_id = $request->input('motFinalizacao');
         
             $dados->save();
 
@@ -222,9 +228,7 @@ class PropostaController extends Controller
 
         $pontos = proposta::where('sn_ativo', false)
                               ->where('gerencPontos', false)
-                              ->with([
-
-                              ])
+                              ->where('motivo_finalizacao_id',1)
                               ->with('proposta_users_relation')
                               ->get();
 

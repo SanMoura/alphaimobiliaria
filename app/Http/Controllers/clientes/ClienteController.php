@@ -10,6 +10,7 @@ use App\Http\Requests\ClienteUpdateRequest;
 
 
 use App\Models\cliente;
+use App\Models\Fonte;
 use App\Models\proposta;
 use App\Models\log_proposta;
 use App\Models\PropostaUsers;
@@ -27,15 +28,23 @@ class ClienteController extends Controller
         $usuarios = User::where('id', auth()->user()->id)->get();
         
         $cargo = $usuarios[0]->cargo_id;
-        
+
+        if (auth()->user()->cargo_id == 1){
             $clientes = cliente::orderBy('nome','asc')
             ->with(['proposta' => function ($r){
                 $r->where('sn_ativo', true);
             }])
+            ->with('fonte')
             ->paginate(9);
-
-
-
+        }else{
+            $clientes = cliente::orderBy('nome','asc')
+            ->where('user_id', auth()->user()->id)
+            ->with(['proposta' => function ($r){
+                $r->where('sn_ativo', true);
+            }])
+            ->with('fonte')
+            ->paginate(9);
+        }
 
             $propostasAtivas = proposta::where('sn_ativo', true)
             ->get();
@@ -49,19 +58,25 @@ class ClienteController extends Controller
     public function cadCliente(){
         $title = 'Novo Cliente';
 
+        $fontes = Fonte::where('sn_ativo', true)
+            ->get();
 
-        return view('clientes/cadastro', compact('title'));
+
+        return view('clientes/cadastro', compact('title','fontes'));
     }
 
     public function editCliente( Request $request ){
 
         $title = 'Edição de Cliente';
 
+        $fontes = Fonte::where('sn_ativo', true)
+        ->get();
+
         $cliente_id = $request->only('cliente_id');
 
         $clientes = cliente::where('id',$cliente_id)->get();
 
-        return view('clientes/edicao', compact('title','clientes'));
+        return view('clientes/edicao', compact('title','clientes','fontes'));
     }
 
 
@@ -74,7 +89,7 @@ class ClienteController extends Controller
         $dados->rg = $request->input('rg');
         $dados->telefone = $request->input('telefone');
         $dados->renda = $request->input('renda');
-        $dados->fonte = $request->input('fonte');
+        $dados->fonte_id = $request->input('fonte');
         $dados->data = $request->input('data');
         
         $dados->save();
@@ -91,7 +106,7 @@ class ClienteController extends Controller
             'nome' => $request->input('nome'),
             'rg' => $request->input('rg'),
             'cpf' => $request->input('cpf'),
-            'fonte' => $request->input('fonte'),
+            'fonte_id' => $request->input('fonte'),
             'data' => $request->input('data'),
             'renda' => $request->input('renda'),
             'telefone' => $request->input('telefone'),

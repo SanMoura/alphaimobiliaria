@@ -17,6 +17,7 @@ class CreateMenuTable extends Migration
             $table->id();
             $table->string('ds_menu');
             $table->string('route');
+            $table->string('tipo');
             $table->string('icone');
             $table->bigInteger('cargo_id')->unsigned()->nullable();
             $table->foreign('cargo_id')->references('id')->on('cargo');

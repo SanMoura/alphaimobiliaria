@@ -1,3 +1,4 @@
+@inject('menusN', 'App\Http\Controllers\menu\MenuController')
 @inject('menus', 'App\Http\Controllers\menu\MenuController')
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -15,35 +16,25 @@
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                            {{-- <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg"> --}}
+                            <img alt="Image placeholder" src="{{ asset('files/fotos') }}/{{ auth()->user()->foto ?? 'coringa.png' }}">
                         </span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
+                        <h6 class="text-overflow m-0">{{ __('Bem Vindo!') }}</h6>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
+                        <span>{{ __('Meu Perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-settings-gear-65"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Activity') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-support-16"></i>
-                        <span>{{ __('Support') }}</span>
-                    </a>
+                  
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
-                        <span>{{ __('Logout') }}</span>
+                        <span>{{ __('Sair') }}</span>
                     </a>
                 </div>
             </li>
@@ -102,30 +93,44 @@
             @empty
                 
             @endforelse
-           
+            @if (auth()->user()->cargo_id == 1)
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            <!-- <h6 class="navbar-heading text-muted">Documentation</h6>
-            Navigation 
+            <h6 class="navbar-heading text-muted"><i class="far fa-chart-bar" style="color: #852E2A;"></i> Relatórios</h6>
+            
+            
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
+                    <a class="nav-link" href="{{ route('relatorioOperacional') }}">
+                        <i class="fas fa-building" style="color: #852E2A;"></i> OPERACIONAL
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
+                    <a class="nav-link" href="{{ route('relatorioAdministrativo') }}">
+                        <i class="fas fa-user-cog" style="color: #852E2A;"></i> ADMINISTRATIVO
                     </a>
                 </li>
             </ul>
-        -->
+            @endif
+
+
+            @if (auth()->user()->cargo_id == 1)
+            <!-- Divider -->
+            <hr class="my-3">
+            <!-- Heading -->
+            <h6 class="navbar-heading text-muted"><i class="far fa-window-restore" style="color: #852E2A;"></i> Site</h6>
+            
+            
+            <ul class="navbar-nav mb-md-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cadPostagem') }}">
+                        <i class="fas fa-rss" style="color: #852E2A;"></i> Postagens
+                    </a>
+                </li>
+            </ul>
+            @endif
+        
         </div>
     </div>
 </nav>

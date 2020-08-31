@@ -39,7 +39,7 @@
                           <div class="col-md-2">
                             <br/>
                             <button id="{{ $proposta_cliente->id }}" onclick="proposta_id(this)" class="btn btn-secondary" style="border-radius: 0 !important" data-toggle="modal" data-target=".modal-proposta">Atualizar</button>
-                            <a class="btn btn-secondary" href="{{ route('finalizar') }}?proposta_id={{ $proposta_cliente->id }}&cliente_id={{ $proposta_cliente->cliente->id }}" style="border-radius: 0 !important" >Finalizar</a>
+                            <a class="btn btn-secondary" data-toggle="modal" data-target=".modal-finalizacao" style="border-radius: 0 !important" >Finalizar</a>
                           </div>
                         </div>  
                         @endforeach
@@ -235,6 +235,38 @@
               </div>
           </div>
 
+
+          <div class="modal fade bd-example-modal-xl modal-finalizacao" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <form action="{{ route('finalizar') }}" method="GET">
+                    <input hidden type="text" name="proposta_id" value="{{ $proposta_cliente->id }}">
+                    <input hidden type="text" name="cliente_id" value="{{ $proposta_cliente->cliente->id }}">
+                    @csrf
+                  <div class="row">
+                    <div class="col-md-12">
+                      Motivo da finalização de proposta:<br/>
+                     <select name="motFinalizacao" class="form-control">
+                       @foreach ($motivos as $motivo)
+                        <option value="{{ $motivo->id }}">{{ $motivo->ds_motivo }}</option>
+                       @endforeach
+                     </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <br/>
+                      <button class="btn btn-primary"> Concluir </button>
+                    </div>
+                  </div>
+
+                </form> 
+                </div>
+              </div>
+            </div>
+        </div>
         <div class="container-fluid">
             @include('layouts.footers.auth')
         </div>

@@ -19,8 +19,8 @@ class CreatePropostaTable extends Migration
             $table->bigInteger('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('cliente');
 
-            // $table->bigInteger('user_id')->unsigned();
-            // $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('motivo_finalizacao_id')->unsigned();
+            $table->foreign('motivo_finalizacao_id')->references('id')->on('motivo_finalizacao');
             $table->boolean('gerencPontos')->default(false);
             $table->boolean('sn_ativo')->default(true);
 

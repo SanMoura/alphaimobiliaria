@@ -12,7 +12,9 @@ use App\Models\log_proposta;
 class MenuController extends Controller
 {
     public function index(){
-        $menus = Menu::where('sn_ativo',true)->get();
+
+        $menus = Menu::where('sn_ativo',true)->where('tipo','N')->get();
+        
 
         return $menus;
     }

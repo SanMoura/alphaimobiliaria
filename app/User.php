@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 use App\Models\Cargos;
 use App\Models\proposta;
-// use App\Models\cliente;
+use App\Models\Postagem;
 
 class User extends Authenticatable
 {
@@ -46,6 +46,11 @@ class User extends Authenticatable
     public function proposta_user()
     {
         return $this->hasMany(proposta::class, 'user_id');
+    }
+
+    public function postagem()
+    {
+        return $this->hasMany(Postagem::class, 'user_id');
     }
 
     public function cargo()

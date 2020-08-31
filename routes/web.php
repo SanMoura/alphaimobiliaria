@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/website', 'SiteController@index')->name('website');
+
 Route::get('/', function () {
 	//return redirect()->route('home');
 	
-	return redirect()->route('home');
+	return redirect()->route('website');
 });
 
-Route::get('/site', 'SiteController@index')->name('site');
+
 
 Auth::routes();
 
@@ -78,5 +80,27 @@ Route::group(['middleware' => 'auth', 'namespace' => 'propostas'], function () {
 	
 	
 });
+
+Route::group(['middleware' => 'auth', 'namespace' => 'relatorios'], function () {
+
+	Route::get('/relatorioOperacional', 'operacionalController@index')->name('relatorioOperacional');
+	Route::get('/relatorioOperacionalI', 'operacionalController@impressaoRelatorioOp')->name('relatorioOperacionalI');
+	Route::post('/relatorioOperacionalFontes', 'operacionalController@fontes')->name('relatorioOperacionalFontes');
+	Route::get('/relatorioAdministrativo', 'administrativoController@index')->name('relatorioAdministrativo');
+
+});
+
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('/cadPostagem', 'SiteController@index_cad')->name('cadPostagem');
+	Route::get('/novaPostagem', 'SiteController@novaPostagem')->name('novaPostagem');
+	Route::get('/editarPostagem', 'SiteController@editarPostagem')->name('editarPostagem');
+	Route::get('/desabilitarPostagem', 'SiteController@desabilitarPostagem')->name('desabilitarPostagem');
+	Route::post('/storePostagem', 'SiteController@storePostagem')->name('storePostagem');
+	Route::post('/updatePostagem', 'SiteController@updatePostagem')->name('updatePostagem');
+	
+});
+
+
 
 

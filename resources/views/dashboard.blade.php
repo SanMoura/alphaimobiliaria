@@ -101,7 +101,7 @@
                                             {{ $proposta_home->cliente->telefone }}
                                         </td>
                                         <td>
-                                            {{ $proposta_home->cliente->fonte }}
+                                            {{ $proposta_home->cliente->fonte->ds_fonte }}
                                         </td>
                                         <td>
                                             {{ $proposta_home->cliente->renda }}

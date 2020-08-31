@@ -14,7 +14,7 @@ class cliente extends Model
         'nome',
         'cpf',
         'rg',
-        'fonte',
+        'fonte_id',
         'telefone',
         'renda',
         'observacoes',
@@ -26,6 +26,11 @@ class cliente extends Model
     public function proposta()
     {
         return $this->hasMany(proposta::class, 'cliente_id');
+    }
+
+    public function fonte()
+    {
+        return $this->belongsTo(Fonte::class, 'fonte_id');
     }
 
     // public function usuario()

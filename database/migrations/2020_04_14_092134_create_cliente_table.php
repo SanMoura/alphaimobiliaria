@@ -18,7 +18,8 @@ class CreateClienteTable extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->string('rg')->unique();
-            $table->string('fonte');
+            $table->bigInteger('fonte_id')->unsigned();
+            $table->foreign('fonte_id')->references('id')->on('fonte');
             $table->string('telefone');
             $table->string('renda');
             $table->longText('observacoes')->nullable();

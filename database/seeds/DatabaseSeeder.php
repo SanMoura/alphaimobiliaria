@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             StatusTableSeeder::class,
             MenuTableSeeder::class,
+            FontesTableSeeder::class,
+            MotivoFinalizacaoTableSeeder::class,
         ]);
     }
 }
