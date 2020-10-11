@@ -275,21 +275,22 @@ class Helpers
 
         $dados = DB::select('
 
-        SELECT 
+        select 
             proposta.id proposta ,
-            CLIENTE.NOME nome_cliente, 
-            USERS.NAME nome  
-        FROM 
-            CLIENTE, 
-            PROPOSTA, 
-            USERS
+            cliente.nome nome_cliente, 
+            users.name nome  
+        from 
+            cliente, 
+            proposta, 
+            users
             
-        WHERE 
-            CLIENTE.ID = PROPOSTA.cliente_id
-            AND   CLIENTE.user_id = USERS.ID
+        where 
+        cliente.id = proposta.cliente_id
+            and   cliente.user_id = users.id
             and str_to_date(proposta.created_at, "%Y-%m-%d") between "'.$dt_ini.'" and "'.$dt_fim.'"
         order by 
             users.name asc 
+        
         
         ');
     
@@ -303,22 +304,22 @@ class Helpers
     public static function cor($proposta){
 
         $dados = DB::select('
-        SELECT 
-            CASE 
-            WHEN PROPOSTA.SN_ATIVO = 1 THEN "rgb(241, 206, 4)" 
-            WHEN PROPOSTA.SN_ATIVO = 0 AND (PROPOSTA.MOTIVO_FINALIZACAO_ID <> 1) THEN "rgb(194, 10, 47)"  
-            WHEN PROPOSTA.SN_ATIVO = 0 AND (PROPOSTA.MOTIVO_FINALIZACAO_ID = 1) THEN "rgb(44, 138, 106)" END COR
-        FROM PROPOSTA, LOG_PROPOSTA
-        WHERE PROPOSTA.ID = LOG_PROPOSTA.PROPOSTA_ID
-        AND PROPOSTA.ID = '.$proposta.'
-        ORDER by log_proposta.id desc
-        limit 1
+        select 
+        case 
+        when proposta.sn_ativo = 1 then "rgb(241, 206, 4)" 
+        when proposta.sn_ativo = 0 and (proposta.motivo_finalizacao_id <> 1) then "rgb(194, 10, 47)"  
+        when proposta.sn_ativo = 0 and (proposta.motivo_finalizacao_id = 1) then "rgb(44, 138, 106)" end cor
+    from proposta, log_proposta
+    where proposta.id = log_proposta.proposta_id
+    and proposta.id = '.$proposta.'
+    order by log_proposta.id desc
+    limit 1
         ');
 
         $res = 0;
     
         foreach ($dados as $dado) {
-            $res = $dado->COR;
+            $res = $dado->cor;
         }
     
         return $res;

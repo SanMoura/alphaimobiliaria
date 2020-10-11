@@ -58,7 +58,8 @@ class SiteController extends Controller
         if ($arquivo != null){
             $filename = time().'.'.$arquivo->extension();
             // $filePath = public_path() . '../../../domains/imobiliariaalpha.com/public_html/files/uploads/';
-            $filePath = public_path() . '/files/site/uploads/';
+            // $filePath = public_path() . '/files/site/uploads/';
+            $filePath = public_path() . '/../../../domains/imobiliariaalpha.com/public_html/files/site/uploads/';
             $nameOriginal = $arquivo->getClientOriginalName();
             $arquivo->move($filePath, $filename);
             $dados->imagem = $filename;
@@ -99,7 +100,7 @@ class SiteController extends Controller
  
         $filename = time().'.'.$arquivo->extension();
         // $filePath = public_path() . '../../../domains/imobiliariaalpha.com/public_html/files/uploads/';
-        $filePath = public_path() . '/files/site/uploads/';
+        $filePath = public_path() . '/../../../domains/imobiliariaalpha.com/public_html/files/site/uploads/';
         $nameOriginal = $arquivo->getClientOriginalName();
         $arquivo->move($filePath, $filename);
 

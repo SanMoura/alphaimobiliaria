@@ -29,44 +29,32 @@ class ClienteController extends Controller
         
         $cargo = $usuarios[0]->cargo_id;
 
-<<<<<<< HEAD
         if (auth()->user()->cargo_id == 1){
-=======
-        if ($cargo == 1){
-            
->>>>>>> 1271414220b3eb7dd41b3fb41854607116f81f4e
+
+
             $clientes = cliente::orderBy('nome','asc')
             ->with(['proposta' => function ($r){
                 $r->where('sn_ativo', true);
             }])
             ->with('fonte')
             ->paginate(9);
-<<<<<<< HEAD
-        }else{
-=======
+
+       
+
    
         }else{
 
->>>>>>> 1271414220b3eb7dd41b3fb41854607116f81f4e
+
             $clientes = cliente::orderBy('nome','asc')
             ->where('user_id', auth()->user()->id)
             ->with(['proposta' => function ($r){
                 $r->where('sn_ativo', true);
             }])
-<<<<<<< HEAD
+
             ->with('fonte')
             ->paginate(9);
         }
-=======
-            ->paginate(9);
 
-        }
-        
-         
-
-
-
->>>>>>> 1271414220b3eb7dd41b3fb41854607116f81f4e
 
             $propostasAtivas = proposta::where('sn_ativo', true)
             ->get();

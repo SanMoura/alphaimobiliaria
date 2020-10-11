@@ -332,56 +332,5 @@
 @push('js')
 <script>
 
-
-    function dados_relatorio() {
-
-        par_mes = $('#mes_referencia').val()
-        
-        axios.post("{{ route('relatorioOperacionalFontes') }}", {
-            mes : par_mes
-        })
-        .then(function (response) {
-
-            response.data.forEach(element => {
-                let fonte = element.fonte_id;
-                console.table(element.fonte); 
-
-                        
-            });
-            
-
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-    }
-
-    new Chart(document.getElementById("chartjs-4"),{
-        "type":"doughnut",
-        "data":{
-            "labels":[
-                "OLX","FACEBOOK","PLACA","INSTAGRAM","OUTROS"
-                ],
-            "datasets":[
-                        {
-                        "label":"My First Dataset",
-                        "data":[300,50,100,100,180],
-                        "backgroundColor":[
-                            "red",
-                            "rgb(54, 162, 235)",
-                            "rgb(58, 211, 235)",
-                            "rgb(255, 205, 86)",
-                            "purple"
-                            ]
-                        }
-                    ]
-                }
-            }
-        );
-
     </script>
 @endpush
