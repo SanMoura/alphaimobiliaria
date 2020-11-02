@@ -8,7 +8,7 @@ use App\Http\Requests\ClienteRequest;
 use App\Http\Requests\ClienteUpdateRequest;
 
 
-
+use App\Models\AcompCliente;
 use App\Models\cliente;
 use App\Models\Fonte;
 use App\Models\proposta;
@@ -123,6 +123,9 @@ class ClienteController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
+        // Solicitado para não criar proposta automatica na criação do cliente, ser criado um processo de acompanhamento do cliente
+        // 11/10/2020
+        /*
         $proposta = proposta::create([
             'cliente_id' => $cliente->id,
             //'user_id' => auth()->user()->id,
@@ -144,6 +147,15 @@ class ClienteController extends Controller
 
 
         return redirect()->route('proposta.index', ['cliente_id' => $cliente->id]);
+        */
+
+        $acompCliente = acompCliente::create([
+            'cliente_id' => $cliente->id,
+            'status_id' => 1
+            
+        ]);
+
+        return redirect()->route('acompCliente.index', ['cliente_id' => $cliente->id]);
 
     }
 

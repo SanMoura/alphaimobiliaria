@@ -21,25 +21,20 @@ Route::get('/', function () {
 	return redirect()->route('website');
 });
 
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-	
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-
 	Route::post('fotoPerfil', 'ProfileController@fotoPerfil')->name('fotoPerfil');
 
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'usuarios'], function () {
-
 	Route::resource('/usuario', 'UsuariosController');
 	Route::get('/usuarioEditar', 'UsuariosController@editar')->name('editUsuario');
 	Route::post('/updateUsuario', 'UsuariosController@updateUsuario')->name('updateUsuario');
@@ -49,7 +44,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'usuarios'], function () {
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'clientes'], function () {
-
 	Route::resource('/cliente', 'ClienteController');
 	Route::get('/cadCliente', 'ClienteController@cadCliente')->name('cadCliente');
 	Route::get('/editCliente', 'ClienteController@editCliente')->name('editCliente');
@@ -58,15 +52,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'clientes'], function () {
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'produtos'], function () {
-
 	Route::get('/cadProduto', 'ProdutoController@cadastro')->name('cad_produto');
 	
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'propostas'], function () {
-
 	Route::resource('/proposta', 'PropostaController');
-	
 	Route::get('/historico', 'PropostaController@historico')->name('historico');
 	Route::get('/gerenciaPontos', 'PropostaController@gerenciaPontos')->name('gerenciaPontos');
 	Route::post('/storePontos', 'PropostaController@storePontos')->name('storePontos');
@@ -82,7 +73,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'propostas'], function () {
 });
 
 Route::group(['middleware' => 'auth', 'namespace' => 'relatorios'], function () {
-
 	Route::get('/relatorioOperacional', 'operacionalController@index')->name('relatorioOperacional');
 	Route::get('/relatorioOperacionalI', 'operacionalController@impressaoRelatorioOp')->name('relatorioOperacionalI');
 	Route::post('/relatorioOperacionalFontes', 'operacionalController@fontes')->name('relatorioOperacionalFontes');
@@ -91,7 +81,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'relatorios'], function () 
 });
 
 Route::group(['middleware' => 'auth'], function () {
-
 	Route::get('/cadPostagem', 'SiteController@index_cad')->name('cadPostagem');
 	Route::get('/novaPostagem', 'SiteController@novaPostagem')->name('novaPostagem');
 	Route::get('/editarPostagem', 'SiteController@editarPostagem')->name('editarPostagem');
@@ -99,6 +88,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/storePostagem', 'SiteController@storePostagem')->name('storePostagem');
 	Route::post('/updatePostagem', 'SiteController@updatePostagem')->name('updatePostagem');
 	
+});
+
+Route::group(['middleware' => 'auth', 'namespace' => 'clientes'], function () {
+	Route::resource('/acompCliente', 'acompController');
+
 });
 
 

@@ -54,12 +54,7 @@
                                         </td>
                                         <td class="text-center"><a href="{{ route('editCliente',['cliente_id' => $cliente->id]) }}" class="btn btn-secondary btn-sm" style="border-radius: 0 !important">EDITAR</a>
                                         @if ($cliente->proposta == '[]')
-
-                                            @if ( auth()->user()->cargo_id <> 1 )
-                                                <a href="{{ route('novaProposta',['cliente_id' => $cliente->id]) }}" class="btn btn-primary btn-sm" style="border-radius: 0 !important">NOVA PROPOSTA</a></td>    
-                                            
-                                            @endif
-                                            
+                                            <a href="{{ route('acompCliente.index',['cliente_id' => $cliente->id]) }}" class="btn btn-primary btn-sm" style="border-radius: 0 !important">ACOMPANHAR</a></td>    
                                         @endif
                                         
                                     </tr>    

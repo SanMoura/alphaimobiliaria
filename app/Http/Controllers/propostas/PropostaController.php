@@ -36,7 +36,9 @@ class PropostaController extends Controller
 
         $cliente = $request->only('cliente_id');
 
-        $status = status::where('sn_ativo',true)->get();
+        $status = status::where('sn_ativo',true)
+        ->where('tp_status','P')
+        ->get();
 
         $motivos = motivoFinalizacao::where('sn_ativo', true)
         ->get();

@@ -15,22 +15,42 @@ class StatusTableSeeder extends Seeder
         $status = [
             [
                 'ds_status' => 'Acompanhamento',
+                'tp_status' => 'C',
                 
             ],
             [
                 'ds_status' => 'Agendou Visita',
+                'tp_status' => 'C',
                 
             ],
             [
                 'ds_status' => 'Visita Efetuada',
+                'tp_status' => 'C',
+                
+            ],
+            [
+                'ds_status' => 'Desistencia/Cancelamento',
+                'tp_status' => 'C',
+                
+            ],            
+            [
+                'ds_status' => 'Proposta',
+                'tp_status' => 'C',
+                
+            ],
+            [
+                'ds_status' => 'Aprovado',
+                'tp_status' => 'P',
                 
             ],
             [
                 'ds_status' => 'Assinatura',
+                'tp_status' => 'P',
                 
             ],
             [
                 'ds_status' => 'Entrega de Chaves',
+                'tp_status' => 'P',
                 
             ],
             

@@ -16,6 +16,7 @@ class CreateStatusTable extends Migration
         Schema::create('status', function (Blueprint $table) {
             $table->id();
             $table->string('ds_status');
+            $table->enum('tp_status', ['C','P'])->comments('C: Cliente, P: Proposta');
             $table->boolean('sn_ativo')->default(true);
             $table->timestamps();
         });

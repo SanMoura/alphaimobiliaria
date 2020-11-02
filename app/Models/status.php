@@ -12,4 +12,9 @@ class status extends Model
     {
         return $this->hasMany(log_proposta::class, 'status_id');
     }
+
+    public function acompCliente()
+    {
+        return $this->hasMany(acompCliente::class, 'status_id');
+    }
 }

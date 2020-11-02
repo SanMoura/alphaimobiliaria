@@ -28,6 +28,11 @@ class cliente extends Model
         return $this->hasMany(proposta::class, 'cliente_id');
     }
 
+    public function acompanhamento()
+    {
+        return $this->hasMany(acompCliente::class, 'cliente_id');
+    }
+
     public function fonte()
     {
         return $this->belongsTo(Fonte::class, 'fonte_id');
